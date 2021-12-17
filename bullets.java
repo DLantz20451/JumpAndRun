@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class bullets extends obstacles
 {
     GifImage myGif = new GifImage("bullet.gif");
+    
     /**
      * Act - do whatever the bullets wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -27,7 +28,7 @@ public class bullets extends obstacles
     {
         if (getX() == 0)
         {
-            setLocation(592,667);
+            setLocation(592,Greenfoot.getRandomNumber(800));
         }
     }
     

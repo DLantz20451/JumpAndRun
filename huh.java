@@ -19,6 +19,7 @@ public class huh extends World
         super(600, 400, 1); 
         prepare();
     }
+    
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -27,12 +28,13 @@ public class huh extends World
     {
         Floor floor = new Floor();
         addObject(floor,305,390);
-        
+
         Auridine auridine = new Auridine();
-        addObject(auridine,15,368);
-        
+        addObject(auridine,20,360);
+
         REDACTED rEDACTED = new REDACTED();
-        addObject(rEDACTED,541,350);
-        rEDACTED.setLocation(543,358);
+        addObject(rEDACTED, 501,353);
+        nextWorld nextWorld = new nextWorld();
+        addObject(nextWorld,574,355);
     }
 }

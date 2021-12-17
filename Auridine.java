@@ -12,15 +12,12 @@ public class Auridine extends Actor
     private int vSpeed = 0;
     
     private int accelaration = 1;
-    private int jumpStreangth = 12; 
-    
-    private int HP = 3;
-    private int LIVES = 3;
-    
+    private int jumpStreangth = 10; 
+
     private GreenfootImage Auridine1; 
     private GreenfootImage Auridine2;
-    private GreenfootImage Jump;
     
+    private SimpleTimer timer = new SimpleTimer();
     
     /**
      * How Auridine acts
@@ -29,9 +26,9 @@ public class Auridine extends Actor
     {
         checkKey();
         checkFall();
-        healthLoss();
+        hit();
         nextLevel();
-        //Swing();
+        jumpFall();
     }
     
     /**
@@ -42,22 +39,20 @@ public class Auridine extends Actor
         if (Greenfoot.isKeyDown("right"))
         {
             moveRight();
-            setImage("Auridine2.png");
+            setImage("Spectral2.png");
         }
         
         if (Greenfoot.isKeyDown("left"))
         {
             moveLeft();
-            setImage("Auridine1.png");
+            setImage("Spectral1.png");
         }
         
         if (Greenfoot.isKeyDown("space") && onGround())
         {
             jump();
-            setImage("Jump.png");
         }
     }
-    
     
     /**
      * how we move right
@@ -94,11 +89,14 @@ public class Auridine extends Actor
         return under != null;
     }
     
+    /**
+     * how we detect the platform
+     */
     public void detectPlatform()
     {
         for (int i = 0; i < vSpeed; i++)
         {
-            Actor under = getOneObjectAtOffset(0, getImage().getHeight()/2, Platform.class);
+            Actor under = getOneObjectAtOffset(0, getImage().getHeight()/2 + i, Platform.class);
             if (under!= null)
             {
                 vSpeed = i;
@@ -132,18 +130,28 @@ public class Auridine extends Actor
     }
     
     /**
-     * hp and lives loss
+     *what happends if we get hit
      */
-    public void healthLoss()
+    public void hit()
     {
-        if (HP  <= 0)
+        Actor bullets = getOneIntersectingObject(bullets.class);
+        if (isTouching(bullets.class))
         {
             setLocation(17,764);
-            HP += 3;
+            Greenfoot.playSound("Default.wav");
         }
-        if (LIVES <= 0)
+        
+        Actor spikes = getOneIntersectingObject(spikes.class);
+        if (isTouching(spikes.class))
         {
-            Greenfoot.stop();
+            setLocation(17,764);
+            Greenfoot.playSound("Default.wav");
+        }
+        
+        if (getY() >= 799 )
+        {
+            setLocation(17,764);
+            Greenfoot.playSound("Default.wav");
         }
     }
     //Jake was here :)
@@ -154,26 +162,43 @@ public class Auridine extends Actor
      */
     public void nextLevel()
     {
+        Actor LetsGo = getOneIntersectingObject(LetsGo.class);
+        if ( LetsGo != null)
+        {
+           Greenfoot.setWorld(new Zone1());
+        }
+        
         Actor nextWorld = getOneIntersectingObject(nextWorld.class);
         if ( nextWorld != null)
         {
            Greenfoot.setWorld(new Zone2());
         }
+        
         Actor where = getOneIntersectingObject(where.class);
         if ( where != null)
         {
           Greenfoot.setWorld(new huh()); 
         }
+        
+        Actor FinalFate = getOneIntersectingObject(FinalFate.class);
+        if ( FinalFate != null)
+        {
+          Greenfoot.setWorld(new Finale()); 
+        }
     }
     
     /**
-     * how we attack
+     * our grace time for jumping off of an edge
      */
-   // public void Swing()
-   // {
-   //     if (Greenfoot.isKeyDown("e"))
-   //     {
-   //         setImage("Auridine-attack.gif");
-   //     }
-   //}
+    public void jumpFall()
+    {
+        if (timer.millisElapsed() >= 430 && onGround() == false)
+        {
+            if (Greenfoot.isKeyDown("space"))
+            {
+                jump();
+                timer.mark();
+            }
+        }
+    }
 }
