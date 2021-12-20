@@ -15,7 +15,7 @@ public class MusicPlayer extends Actor
      */
     public void act()
     {
-        music();
+        //music();
     }
     
     /**
@@ -25,11 +25,7 @@ public class MusicPlayer extends Actor
     {
         if (Greenfoot.isKeyDown("1"))
         {
-            Greenfoot.playSound("Forward.mp3");
-        }
-        if (Greenfoot.isKeyDown("2"))
-        {
-            Greenfoot.playSound("Destiny.mp3");
+            Greenfoot.playSound("bb.mp3");
         }
     }
 }

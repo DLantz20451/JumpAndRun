@@ -24,7 +24,7 @@ public class Zone2 extends World
     private void prepare()
     {
         Auridine auridine = new Auridine();
-        addObject(auridine,17,764);
+        addObject(auridine,20,764);
 
         meduim meduim = new meduim();
         addObject(meduim,76,783);

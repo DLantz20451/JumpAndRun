@@ -53,6 +53,6 @@ public class Tutorial extends World
         addObject(spikes,277,774);
 
         MusicPlayer musicPlayer = new MusicPlayer();
-        addObject(musicPlayer,472,430);
+        addObject(musicPlayer, 350,430);
     }
 }
